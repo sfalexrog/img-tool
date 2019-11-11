@@ -14,7 +14,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-FROM debian
+FROM arm32v7/debian
 
 ENV DEBIAN_FRONTEND 'noninteractive'
 ENV LANG 'C.UTF-8'
@@ -25,10 +25,6 @@ RUN apt-get update \
   && apt-get clean
 
 COPY ./*.sh /builder/
-COPY ./qemu-arm-static /builder/qemu-arm-static
-COPY ./src /builder/src
-
-RUN gcc -static /builder/src/qemu-wrapper.c -O3 -s -o /builder/qemu-wrapper
 
 WORKDIR /builder
 CMD ./repo/builder/image-build.sh
