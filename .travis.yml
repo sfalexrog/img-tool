@@ -1,0 +1,16 @@
+os: linux
+dist: bionic
+arch: arm64
+services:
+  - docker
+
+script:
+  - sudo docker build -t sfalexrog/img-tool-arm .
+
+after_script:
+  - >
+    if [ ! -z "${TRAVIS_TAG}" ]; then
+      echo "${DOCKER_PASS}" | docker login -u="${DOCKER_USER}" --password-stdin
+      docker tag sfalexrog/img-tool-arm sfalexrog/img-tool-arm:${TRAVIS_TAG}
+      docker push sfalexrog/img-tool-arm:${TRAVIS_TAG}
+    fi
