@@ -26,6 +26,7 @@ RUN apt-get update \
 
 COPY ./*.sh /builder/
 COPY ./qemu-arm-static /builder/qemu-arm-static
+COPY ./qemu-aarch64-static /builder/qemu-aarch64-static
 COPY ./src /builder/src
 
 RUN gcc -static /builder/src/qemu-wrapper.c -O3 -s -o /builder/qemu-wrapper
